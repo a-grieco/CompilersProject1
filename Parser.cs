@@ -21,23 +21,30 @@ namespace project1
     {
         public struct SymbolTableValue
         {
-            private bool isSet;
-            private int type;
-            private float val;
+            private bool _isSet;
+            private bool _isLambda;
+            private int _type;
+            private float _value;
 
             public bool IsSet
             {
-                get { return isSet; }
+                get { return _isSet; }
+            }
+
+            public bool IsLambda
+            {
+                get { return _isLambda; }
+                set { _isLambda = value; }
             }
 
             public int Type
             {
-                get { return type; }
+                get { return _type; }
                 set
                 {
                     if (value == Token.INUM || value == Token.FNUM)
                     {
-                        type = value;
+                        _type = value;
                     }
                     else
                     {
@@ -48,35 +55,35 @@ namespace project1
 
             public float Value
             {
-                get { return val; }
+                get { return _value; }
                 set
                 {
-                    isSet = true;
-                    val = value;
+                    _isSet = true;
+                    _value = value;
                 }
             }
 
             public override string ToString()
             {
-                string str = "isSet: " + isSet + ", ";
-                if (type == Token.INUM)
+                string str = "isSet: " + _isSet + ", ";
+                if (_type == Token.INUM)
                 {
                     str += "INUM ";
-                    if (isSet)
+                    if (_isSet)
                     {
-                        str += (int)val;
+                        str += (int)_value;
                     }
                     else
                     {
                         str += "[]";
                     }
                 }
-                else if (type == Token.FNUM)
+                else if (_type == Token.FNUM)
                 {
                     str += "FNUM ";
-                    if (isSet)
+                    if (_isSet)
                     {
-                        str += val;
+                        str += _value;
                     }
                     else
                     {
@@ -100,7 +107,7 @@ namespace project1
             if (symbolTable.ContainsKey(Convert.ToChar(id)))
             {
                 int idType = symbolTable[Convert.ToChar(id)].Type;
-                string typeName = idType == Token.INUM ? "INUM" : 
+                string typeName = idType == Token.INUM ? "INUM" :
                     (idType == Token.FNUM ? "FNUM" : "UNDEFINED");
                 Warning("Variable " + id + " already declared as " + typeName);
             }
@@ -120,7 +127,6 @@ namespace project1
             {
                 if (stValue.Type == Token.FNUM)
                 {
-                    //Error("Cannot convert from FNUM to INUM.");
                     Warning("Cannot convert from FNUM to INUM");
                 }
                 else
@@ -130,6 +136,7 @@ namespace project1
             }
             else if (symbolTable[id].Type == Token.FNUM)
             {
+                stValue.Type = Token.FNUM;
                 symbolTable[id] = stValue;
             }
             else
@@ -241,6 +248,8 @@ namespace project1
         public virtual void Stmt()
         {
             string id;
+            int op;
+            SymbolTableValue idVal;
 
             if (ts.peek() == ID)
             {
@@ -256,32 +265,37 @@ namespace project1
                 }
                 else
                 {
+                    idVal = symbolTable[Convert.ToChar(id)];
+
                     Expect(ID);
+                    op = ts.peek();
                     Expect(ASSIGN);
                     SymbolTableValue stVal = Val();
                     if (!stVal.IsSet)
                     {
+                        Console.WriteLine("Assignment of " + id + " failed.");
                         // assignment failed, absorb remaining stmt
                         stVal.Type = Token.FNUM;
                         Expr(stVal);
                     }
                     else
                     {
-                        SymbolTableValue stExp = Expr(stVal);
-                        // if expr failed, print warning message
-                        if (!stExp.IsSet)
-                        {
-                            Warning("Unable to assign type " + stVal.Type +
-                                " to variable " + id + " of type " +
-                                symbolTable[Convert.ToChar(id)].Type);
-                        }
-                        else
+                        // if value is valid, evaluate expression
+                        SymbolTableValue stExp = Expr(idVal);
+                        // if expression is valid (and not lambda), perform 
+                        // operation and update symbol table
+                        if (stExp.IsSet)
                         {
                             SymbolTableValue stResult = Operate(
-                                symbolTable[Convert.ToChar(id)], Token.PLUS, stVal, stExp);
+                                symbolTable[Convert.ToChar(id)],
+                                Token.PLUS, stVal, stExp);
                             UpdateSymbolTable(Convert.ToChar(id), stResult);
                         }
-
+                        // if expression is lambda, update symbol table with value
+                        else if (stExp.IsLambda)
+                        {
+                            UpdateSymbolTable(Convert.ToChar(id), stVal);
+                        }
                     }
 
                 }
@@ -333,33 +347,37 @@ namespace project1
                 ts.peek() == ID || ts.peek() == PRINT || ts.peek() == EOF)
             {
                 // Do nothing for lambda-production
+
+                // return (unset) flagged lambda value for lambda-production
                 SymbolTableValue stLambda = new SymbolTableValue();
-                stLambda.Type = stValue.Type;
-                stLambda.Value = 0;
+                stLambda.IsLambda = true;
                 return stLambda;
+                //stLambda.Type = stValue.Type;
+                //stLambda.Value = 0;
+                //return stLambda;
             }
             else
             {
                 Error("expected plus, minus, fltdcl, intdcl, id, print, or " +
                       "eof");
             }
-            Console.WriteLine("DELETE ME - I SHOULD NOT BE HERE");
-            return stValue; // Code should not reach this 
+            Console.WriteLine("I SHOULD NOT BE HERE...TODO DELETE ME");
+            return new SymbolTableValue(); // code should not reach this point 
         }
 
         // Adds or subtracts two values and returns a SymbolTableValue with an
         // appropriate type: INUM + INUM = INUM, FNUM + (INUM or FNUM) = FNUM
         // TODO: check for valid assignment to variable (different method)
-        private SymbolTableValue Operate(SymbolTableValue stValue, int op,
+        private SymbolTableValue Operate(SymbolTableValue idValue, int op,
             SymbolTableValue v, SymbolTableValue e)
         {
             SymbolTableValue result = new SymbolTableValue();
 
             // check for valid type 
-            if (stValue.Type == INUM)
+            if (idValue.Type == INUM)
             {
                 // if destination var is INUM, both operands must be INUM
-                if (stValue.Type == v.Type && stValue.Type == e.Type)
+                if (v.Type == INUM && (e.IsLambda || e.Type == INUM))
                 {
                     result.Type = INUM;
                 }
@@ -369,7 +387,7 @@ namespace project1
                     Warning("Cannot convert from FNUM to INUM type");
                 }
             }
-            else if (stValue.Type == FNUM)
+            else if (idValue.Type == FNUM)
             {
                 result.Type = FNUM;
             }
@@ -378,17 +396,37 @@ namespace project1
                 Error("Unrecognized type (expected INUM or FNUM)");
             }
 
-            // perform operation
-            if (op == PLUS)
+            // if type is valid, complete expression
+            if (result.Type == Token.INUM || result.Type == Token.FNUM)
             {
-                //Console.WriteLine("PLUS " + v.Value + " + " + e.Value);
-                result.Value = v.Value + e.Value;
-            }
-            else if (op == MINUS)
-            {
-                //Console.WriteLine("MINUS " + v.Value + " - " + e.Value);
-                result.Value = -v.Value + e.Value;
-            }
+                // perform operation
+                if (op == Token.PLUS)
+                {
+                    if (e.IsLambda)
+                    {
+                        Console.WriteLine("PLUS " + v.Value + " (Expr() = lambda) ");
+                        result.Value = v.Value + e.Value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("PLUS " + v.Value + " + " + e.Value);
+                        result.Value = v.Value + e.Value;
+                    }
+                }
+                else if (op == Token.MINUS)
+                {
+                    if (e.IsLambda)
+                    {
+                        Console.WriteLine("MINUS (-)" + v.Value + " (Expr() = lambda) ");
+                        result.Value = - v.Value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("MINUS (-)" + v.Value + " + " + e.Value);
+                        result.Value = -v.Value + e.Value;
+                    }
+                }
+            } // otherwise return value has isSet = false, with no value/type
 
             return result;
         }
@@ -399,8 +437,8 @@ namespace project1
 
             if (ts.peek() == ID)
             {
-                // for id, type/#value already exist in symbol table
                 value = ts.peekValue();
+                // ID's type/#value should already exist in symbol table 
                 if (!symbolTable.ContainsKey(Convert.ToChar(value)))
                 {
                     Warning(value + " is undefined");
