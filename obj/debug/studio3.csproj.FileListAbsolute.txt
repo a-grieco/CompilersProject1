@@ -1,0 +1,13 @@
+C:\Users\Richard LeBlanc\Dropbox\CPSC 4400\studio3\bin\Debug\Studio3.exe.config
+C:\Users\Richard LeBlanc\Dropbox\CPSC 4400\studio3\bin\Debug\Studio3.exe
+C:\Users\Richard LeBlanc\Dropbox\CPSC 4400\studio3\bin\Debug\Studio3.pdb
+C:\Users\Richard LeBlanc\Dropbox\CPSC 4400\studio3\obj\Debug\studio3.csprojResolveAssemblyReference.cache
+C:\Users\Richard LeBlanc\Dropbox\CPSC 4400\studio3\obj\Debug\Studio3.exe
+C:\Users\Richard LeBlanc\Dropbox\CPSC 4400\studio3\obj\Debug\Studio3.pdb
+C:\Users\agrieco\Dropbox\CPSC5400_Compilers\Project1\bin\Debug\Studio3.exe.config
+C:\Users\agrieco\Dropbox\CPSC5400_Compilers\Project1\obj\Debug\Studio3.exe
+C:\Users\agrieco\Dropbox\CPSC5400_Compilers\Project1\obj\Debug\Studio3.pdb
+C:\Users\agrieco\Dropbox\CPSC5400_Compilers\Project1\bin\Debug\Studio3.exe
+C:\Users\agrieco\Dropbox\CPSC5400_Compilers\Project1\bin\Debug\Studio3.pdb
+C:\Users\agrieco\Dropbox\CPSC5400_Compilers\Project1\obj\Debug\studio3.csprojResolveAssemblyReference.cache
+C:\Users\amgrieco\Dropbox\CPSC5400_Compilers\project1\obj\Debug\studio3.csprojResolveAssemblyReference.cache

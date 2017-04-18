@@ -1,0 +1,8 @@
+C:\Users\agrieco\Dropbox\CPSC5400_Compilers\Project1\bin\Debug\Studio3.exe.config
+C:\Users\amgrieco\Dropbox\CPSC5400_Compilers\project1\obj\Debug\project1.csprojResolveAssemblyReference.cache
+C:\Users\amgrieco\Documents\Visual Studio 2017\Projects\Compilers\project1\obj\Debug\project1.csprojResolveAssemblyReference.cache
+C:\Users\amgrieco\Documents\Visual Studio 2017\Projects\Compilers\project1\bin\Debug\project1.exe.config
+C:\Users\amgrieco\Documents\Visual Studio 2017\Projects\Compilers\project1\bin\Debug\project1.exe
+C:\Users\amgrieco\Documents\Visual Studio 2017\Projects\Compilers\project1\bin\Debug\project1.pdb
+C:\Users\amgrieco\Documents\Visual Studio 2017\Projects\Compilers\project1\obj\Debug\project1.exe
+C:\Users\amgrieco\Documents\Visual Studio 2017\Projects\Compilers\project1\obj\Debug\project1.pdb

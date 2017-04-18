@@ -1,0 +1,1 @@
+..\..\..\dotnet-utils\MetadataWriter\AssemblyWriter\Binaries\JB.AsmEdit.exe --include @include.txt --ignore-reference @ignore.txt --out lib\net40 --resign key.snk

@@ -1,0 +1,362 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Platform.ProjectModel.NuGet</name>
+    </assembly>
+    <members>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.Info">
+            <summary>
+            Mapped value for <see cref="F:NuGet.ProjectManagement.MessageLevel.Info"/> (NuGet.ProjectManagement.MessageLevel.Info).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.Warning">
+            <summary>
+            Mapped value for <see cref="F:NuGet.ProjectManagement.MessageLevel.Warning"/> (NuGet.ProjectManagement.MessageLevel.Warning).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.Debug">
+            <summary>
+            Mapped value for <see cref="F:NuGet.ProjectManagement.MessageLevel.Debug"/> (NuGet.ProjectManagement.MessageLevel.Debug).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.Error">
+            <summary>
+            Mapped value for <see cref="F:NuGet.ProjectManagement.MessageLevel.Error"/> (NuGet.ProjectManagement.MessageLevel.Error).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.FileConflict">
+            <summary>
+            Messages from <see cref="M:NuGet.ProjectManagement.INuGetProjectContext.ResolveFileConflict(System.String)"/> (NuGet.ProjectManagement.INuGetProjectContext.ResolveFileConflict).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.ProjectContextError">
+            <summary>
+            Messages from <see cref="M:NuGet.ProjectManagement.INuGetProjectContext.ReportError(System.String)"/> (NuGet.ProjectManagement.INuGetProjectContext.ReportError)
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.Exception">
+            <summary>
+            Exception which were thrown by NuGet API.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.CoreDebug">
+            <summary>
+            Messages from <see cref="M:NuGet.Common.ILogger.LogDebug(System.String)"/> (NuGet.Common.ILogger.LogDebug).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.CoreVerbose">
+            <summary>
+            Messages from <see cref="M:NuGet.Common.ILogger.LogVerbose(System.String)"/> (NuGet.Common.ILogger.LogDebug).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.CoreInformation">
+            <summary>
+            Messages from <see cref="M:NuGet.Common.ILogger.LogInformation(System.String)"/> (NuGet.Common.ILogger.LogDebug).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.CoreMinimal">
+            <summary>
+            Messages from <see cref="M:NuGet.Common.ILogger.LogMinimal(System.String)"/> (NuGet.Common.ILogger.LogDebug).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.CoreWarning">
+            <summary>
+            Messages from <see cref="M:NuGet.Common.ILogger.LogWarning(System.String)"/> (NuGet.Common.ILogger.LogDebug).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.CoreError">
+            <summary>
+            Messages from <see cref="M:NuGet.Common.ILogger.LogError(System.String)"/> (NuGet.Common.ILogger.LogDebug).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.CoreInformationSummary">
+            <summary>
+            Messages from <see cref="M:NuGet.Common.ILogger.LogInformationSummary(System.String)"/> (NuGet.Common.ILogger.LogDebug).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.CoreErrorSummary">
+            <summary>
+            Messages from <see cref="M:NuGet.Common.ILogger.LogErrorSummary(System.String)"/> (NuGet.Common.ILogger.LogDebug).
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.IdeProjectSystem">
+            <summary>
+            Messages from our project system.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.IdeInfo">
+            <summary>
+            Information messages from our logic.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.IdeTrace">
+            <summary>
+            Trace messages from our logic.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.IdeDebug">
+            <summary>
+            Debug messages from our logic.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.IdeError">
+            <summary>
+            Error messages from our logic.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.NotificationInfo">
+            <summary>
+            Mapped value of <see cref="F:JetBrains.ProjectModel.NuGet.Logging.NuGetNotificationLevel.Info"/>.
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.NotificationWarning">
+            <summary>
+            Mapped value of <see cref="F:JetBrains.ProjectModel.NuGet.Logging.NuGetNotificationLevel.Warning"/>.
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.NotificationError">
+            <summary>
+            Mapped value of <see cref="F:JetBrains.ProjectModel.NuGet.Logging.NuGetNotificationLevel.Error"/>.
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetLogLevel.NotificationException">
+            <summary>
+            Mapped value of <see cref="F:JetBrains.ProjectModel.NuGet.Logging.NuGetNotificationLevel.Exception"/>.
+            Shouldn't be used manually.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetNotificationMode.Always">
+            <summary>
+            Notifications will always be shown.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetNotificationMode.ErrorOnly">
+            <summary>
+            Only Warning, Error, and Exception notification will be shown.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Logging.NuGetNotificationMode.Silent">
+            <summary>
+            Notification will not be shown.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.Operations.NuGetOperator.RunAsync(JetBrains.ProjectModel.NuGet.Operations.NuGetOperationRequest,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Use can use this method only if you are 100% sure that there are no queued operation requests.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.NuGet.PackageManagement.NuGetProjectType">
+            <summary>
+            The different types of NuGet projects.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.PackageManagement.NuGetProjectType.Unsupported">
+            <summary>
+            Used if the project does not support NuGet.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.PackageManagement.NuGetProjectType.Unknown">
+            <summary>
+            Used if the <see cref="T:NuGet.ProjectManagement.NuGetProject"/> is not a recognized type.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.PackageManagement.NuGetProjectType.PackagesConfig">
+            <summary>
+            Corresponds to <see cref="T:NuGet.ProjectManagement.MSBuildNuGetProject"/>.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.PackageManagement.NuGetProjectType.UwpProjectJson">
+            <summary>
+            Corresponds to <see cref="T:NuGet.ProjectManagement.Projects.BuildIntegratedNuGetProject"/>.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.PackageManagement.NuGetProjectType.XProjProjectJson">
+            <summary>
+            Corresponds to <see cref="T:NuGet.ProjectManagement.Projects.ProjectKNuGetProjectBase"/>.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.PackageManagement.NuGetProjectType.CpsBasedPackageRefs">
+            <summary>
+            Corresponds to MSBuildShellOutNuGetProject.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.PackageManagement.NuGetProjectType.LegacyProjectSystemWithPackageRefs">
+            <summary>
+            It will be used for legacy project system with package references.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphRestoreUtility">
+            <summary>
+            Supporting methods for restoring sets of projects that implement <see cref="T:NuGet.ProjectManagement.IDependencyGraphProject"/>. This
+            code is used by Visual Studio to execute restores for solutions that have mixtures of UWP project.json,
+            packages.config, and PackageReference-type projects.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphRestoreUtility.RestoreAsync(NuGet.PackageManagement.ISolutionManager,NuGet.ProjectManagement.DependencyGraphCacheContext,NuGet.Commands.RestoreCommandProvidersCache,System.Action{NuGet.Protocol.Core.Types.SourceCacheContext},System.Collections.Generic.IEnumerable{NuGet.Protocol.Core.Types.SourceRepository},NuGet.Configuration.ISettings,NuGet.Common.ILogger,System.Threading.CancellationToken)">
+            <summary>
+            Restore a solution and cache the dg spec to context.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphRestoreUtility.RestoreAsync(NuGet.PackageManagement.ISolutionManager,NuGet.ProjectManagement.DependencyGraphCacheContext,NuGet.Commands.RestoreCommandProvidersCache,System.Action{NuGet.Protocol.Core.Types.SourceCacheContext},System.Collections.Generic.IEnumerable{NuGet.Protocol.Core.Types.SourceRepository},System.String,NuGet.Configuration.ISettings,NuGet.Common.ILogger,System.Threading.CancellationToken)">
+            <summary>
+            Restore a solution and cache the dg spec to context.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphRestoreUtility.RestoreAsync(NuGet.ProjectModel.DependencyGraphSpec,NuGet.ProjectManagement.DependencyGraphCacheContext,NuGet.Commands.RestoreCommandProvidersCache,System.Action{NuGet.Protocol.Core.Types.SourceCacheContext},System.Collections.Generic.IEnumerable{NuGet.Protocol.Core.Types.SourceRepository},NuGet.Configuration.ISettings,NuGet.Common.ILogger,System.Threading.CancellationToken)">
+            <summary>
+            Restore a dg spec. This will not update the context cache.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphRestoreUtility.PreviewRestoreAsync(NuGet.PackageManagement.ISolutionManager,NuGet.ProjectManagement.Projects.BuildIntegratedNuGetProject,NuGet.ProjectModel.PackageSpec,NuGet.ProjectManagement.DependencyGraphCacheContext,NuGet.Commands.RestoreCommandProvidersCache,System.Action{NuGet.Protocol.Core.Types.SourceCacheContext},System.Collections.Generic.IEnumerable{NuGet.Protocol.Core.Types.SourceRepository},NuGet.Configuration.ISettings,NuGet.Common.ILogger,System.Threading.CancellationToken)">
+            <summary>
+            Restore without writing the lock file
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphRestoreUtility.PreviewRestoreAsync(NuGet.PackageManagement.ISolutionManager,NuGet.ProjectManagement.Projects.BuildIntegratedNuGetProject,NuGet.ProjectModel.PackageSpec,NuGet.ProjectManagement.DependencyGraphCacheContext,NuGet.Commands.RestoreCommandProvidersCache,System.Action{NuGet.Protocol.Core.Types.SourceCacheContext},System.Collections.Generic.IEnumerable{NuGet.Protocol.Core.Types.SourceRepository},System.String,NuGet.Configuration.ISettings,NuGet.Common.ILogger,System.Threading.CancellationToken)">
+            <summary>
+            Restore without writing the lock file
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphRestoreUtility.RestoreProjectAsync(NuGet.PackageManagement.ISolutionManager,NuGet.ProjectManagement.Projects.BuildIntegratedNuGetProject,NuGet.ProjectManagement.DependencyGraphCacheContext,NuGet.Commands.RestoreCommandProvidersCache,System.Action{NuGet.Protocol.Core.Types.SourceCacheContext},System.Collections.Generic.IEnumerable{NuGet.Protocol.Core.Types.SourceRepository},NuGet.Configuration.ISettings,NuGet.Common.ILogger,System.Threading.CancellationToken)">
+            <summary>
+            Restore a build integrated project and update the lock file
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphRestoreUtility.GetRestoreContext(NuGet.ProjectManagement.DependencyGraphCacheContext,NuGet.Commands.RestoreCommandProvidersCache,NuGet.Configuration.ISettings,NuGet.Protocol.Core.Types.SourceCacheContext,System.Collections.Generic.IEnumerable{NuGet.Protocol.Core.Types.SourceRepository},NuGet.ProjectModel.DependencyGraphSpec,System.String)">
+            <summary>
+            Create a restore context.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedRestoreRunner">
+            <summary>
+            Shared code to run the "restore" command for dotnet restore, nuget.exe, and VS.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedRestoreRunner.RunAsync(NuGet.Commands.RestoreArgs,System.Threading.CancellationToken)">
+            <summary>
+            Create requests, execute requests, and commit restore results.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedRestoreRunner.Run(NuGet.Commands.RestoreArgs)">
+            <summary>
+            Create requests, execute requests, and commit restore results.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedRestoreRunner.RunAsync(System.Collections.Generic.IEnumerable{NuGet.Commands.RestoreSummaryRequest},NuGet.Commands.RestoreArgs,System.Threading.CancellationToken)">
+            <summary>
+            Execute and commit restore requests.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedRestoreRunner.RunWithoutCommit(System.Collections.Generic.IEnumerable{NuGet.Commands.RestoreSummaryRequest},NuGet.Commands.RestoreArgs)">
+            <summary>
+            Execute and commit restore requests.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedRestoreRunner.GetRequests(NuGet.Commands.RestoreArgs)">
+            <summary>
+            Create restore requests but do not execute them.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphSpecRequestProvider">
+            <summary>
+            In Memory dg file provider.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedDependencyGraphSpecRequestProvider.CollectReferences(NuGet.ProjectModel.ExternalProjectReference,System.Collections.Generic.Dictionary{System.String,NuGet.ProjectModel.ExternalProjectReference},System.Collections.Generic.HashSet{NuGet.ProjectModel.ExternalProjectReference})">
+            <summary>
+            Return all references for a given project path.
+            References is modified by this method.
+            This includes the root project.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedRestoreCommand.GetRestoreRuntimes(NuGet.Commands.RestoreRequest)">
+            <summary>
+            Combines the project runtimes with the request.RequestedRuntimes.
+            If those are both empty FallbackRuntimes is returned.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedIncludeFlagUtils.GetDependencyType(NuGet.DependencyResolver.GraphNode{NuGet.DependencyResolver.RemoteResolveResult},NuGet.DependencyResolver.GraphNode{NuGet.DependencyResolver.RemoteResolveResult})">
+            <summary>
+            Find the flags for a node.
+            Include - Exclude - ParentExclude
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedIncludeFlagUtils.OrderType(NuGet.DependencyResolver.GraphItem{NuGet.DependencyResolver.RemoteResolveResult})">
+            <summary>
+            Prefer projects over packages
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedIncludeFlagUtils.DependencyNode">
+            <summary>
+            A simple node class to hold the incoming dependency edge during the graph walk.
+            </summary>
+        </member>
+        <member name="P:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedIncludeFlagUtils.DependencyNode.DependencyType">
+            <summary>
+            Incoming edge
+            </summary>
+        </member>
+        <member name="P:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetIntegratedProjectHacks.HackedIncludeFlagUtils.DependencyNode.Item">
+            <summary>
+            Node item
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetUwpProject.JsonConfigUtilityGetDependencies(Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            Read dependencies from a project.json file
+            </summary>
+        </member>
+        <member name="T:JetBrains.ProjectModel.NuGet.Restoring.INugetRestoreWaiter">
+            <summary>
+            It's only for manual testing.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Restoring.NuGetPackageRestoreResult.AlreadyRestored">
+            <summary> There are no any packages that should be restored </summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Restoring.NuGetPackageRestoreResult.Complete">
+            <summary> Some of the project packages were restored</summary>
+        </member>
+        <member name="F:JetBrains.ProjectModel.NuGet.Restoring.NuGetPackageRestoreResult.Error">
+            <summary> NuGet API threw an exception during restore process</summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.PackageManagement.NuGetSolutionManagerV4.GetNuGetProjectSafeName(NuGet.ProjectManagement.NuGetProject)">
+            <summary>
+            Return short name if it's non-ambiguous.
+            Return CustomUniqueName for projects that have ambigous names (such as same project name under different solution folder)
+            Example: return Folder1/ProjectA if there are both ProjectA under Folder1 and Folder2
+            </summary>
+        </member>
+        <member name="M:JetBrains.ProjectModel.NuGet.ProjectManagement.ProjectSystems.NuGetMsBuildProjectSystem.GetFullPaths(System.String)">
+            <summary>
+            Returns the list of full paths of all files in the project whose name is <paramref name="fileName"/>.
+            </summary>
+            <param name="fileName">The file name to search.</param>
+            <returns>The list of full paths.</returns>
+        </member>
+        <member name="P:JetBrains.ProjectModel.NuGet.Unsorted.RestoreSession.Progress">
+            <summary>
+            Progress 0..1.
+            </summary>
+        </member>
+    </members>
+</doc>
