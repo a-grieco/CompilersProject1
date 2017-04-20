@@ -19,6 +19,17 @@ namespace project1
     /// </summary>
     public class Parser
     {
+        private TokenStream ts;
+
+        public Parser(FileStream file)
+        {
+            ts = new TokenStream(file);
+        }
+
+        private string _warningMessage;
+
+        #region SymbolTable
+
         public struct SymbolTableValue
         {
             private bool _isSet;
@@ -93,11 +104,10 @@ namespace project1
             }
         }
 
-        private string warningMessage;
-
         Dictionary<char, SymbolTableValue> symbolTable =
             new Dictionary<char, SymbolTableValue>();
 
+        // Add a valid variable declaration to the symbol table
         private void AddToSymbolTable(int type, string id)
         {
             // prevent duplicate declaration of the same variable
@@ -110,14 +120,24 @@ namespace project1
             }
             else
             {
-                SymbolTableValue stValue = new SymbolTableValue();
-                stValue.Type = type;
-                symbolTable.Add(Convert.ToChar(id), stValue);
+                // allow only INUM or FNUM types
+                if (type == INUM || type == FNUM)
+                {
+                    SymbolTableValue stValue = new SymbolTableValue();
+                    stValue.Type = type;
+                    symbolTable.Add(Convert.ToChar(id), stValue);
+                }
+                else
+                {
+                    Warning("Declaration of " + id + 
+                        " failed, expected type INUM or FNUM", true);
+                }
+
             }
         }
 
-        // Assigns a value to the symbol in the table; prevents assignment of a
-        // float value to a symbol declared as an int
+        // Assign a value to the symbol in the table; prevent assignment of
+        // FNUM to a symbol declared as an INUM
         private void UpdateSymbolTable(char id, SymbolTableValue stValue)
         {
             if (symbolTable[id].Type == Token.INUM)
@@ -133,7 +153,7 @@ namespace project1
             }
             else if (symbolTable[id].Type == Token.FNUM)
             {
-                stValue.Type = Token.FNUM;
+                stValue.Type = Token.FNUM;  // convert any INUMS to FNUMS
                 symbolTable[id] = stValue;
             }
             else
@@ -142,7 +162,7 @@ namespace project1
             }
         }
 
-        // TODO: what exactly should this print?
+        // Print an id with type, symbol, and value (if defined)
         private void Print(string id)
         {
             if (symbolTable.ContainsKey(Convert.ToChar(id)))
@@ -172,7 +192,7 @@ namespace project1
             }
         }
 
-        // Prints the symbol table ("p ~")
+        // Print the symbol table ("p ~")
         private void PrintSymbolTable()
         {
             Console.WriteLine("*---------------------------------------*");
@@ -182,13 +202,7 @@ namespace project1
             }
             Console.WriteLine("*---------------------------------------*");
         }
-
-        private TokenStream ts;
-
-        public Parser(FileStream file)
-        {
-            ts = new TokenStream(file);
-        }
+        #endregion SymbolTable
 
         public virtual void Prog()
         {
@@ -306,7 +320,7 @@ namespace project1
                         {
                             UpdateSymbolTable(Convert.ToChar(id), stVal);
                         }
-                        if (idVal.Type == INUM && (idVal.Type != stVal.Type || 
+                        if (idVal.Type == INUM && (idVal.Type != stVal.Type ||
                             (idVal.Type != stExp.Type && !stExp.IsLambda)))
                         {
                             Warning("Assignment of " + id + " failed", true);
@@ -461,7 +475,7 @@ namespace project1
                 }
                 else
                 {
-                    SymbolTableValue stValue = 
+                    SymbolTableValue stValue =
                         symbolTable[Convert.ToChar(value)];
                     if (!stValue.IsSet)
                     {
@@ -515,20 +529,20 @@ namespace project1
         {
             if (print)
             {
-                if (warningMessage == null)
+                if (_warningMessage == null)
                 {
                     Console.WriteLine("Warning: " + message);
                 }
                 else
                 {
-                    warningMessage = "Warning: " + message + warningMessage;
-                    Console.WriteLine(warningMessage);
+                    _warningMessage = "Warning: " + message + _warningMessage;
+                    Console.WriteLine(_warningMessage);
                 }
-                warningMessage = null;
+                _warningMessage = null;
             }
             else
             {
-                warningMessage = warningMessage + "\n\t" + message;
+                _warningMessage = _warningMessage + "\n\t" + message;
             }
         }
     }
