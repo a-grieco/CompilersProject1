@@ -1,26 +1,17 @@
 f x x=12.345   p x 
-p ~
 i a i b  a = 42  b = a   p b 
-p ~
 x = b   p x 
-p ~
 a = a - 2   p a 
-p ~
 b = a + b   p b 
-p ~
 i c c = b - a + 10 - a   p c 
-p ~
 x = x + 9.99  p x 
-p ~
 x = x - 1 + c   p x 
-p ~
 y = x 
-p ~
 x = y 
-p ~
 c = x 
-p ~
 a = b + d - 1 
-p ~
 f c
+
+x = y + q + v
+
 p ~

@@ -22,7 +22,6 @@ namespace project1
         public struct SymbolTableValue
         {
             private bool _isSet;
-            private bool _isLambda;
             private int _type;
             private float _value;
 
@@ -31,11 +30,7 @@ namespace project1
                 get { return _isSet; }
             }
 
-            public bool IsLambda
-            {
-                get { return _isLambda; }
-                set { _isLambda = value; }
-            }
+            public bool IsLambda { get; set; }
 
             public int Type
             {
@@ -98,6 +93,8 @@ namespace project1
             }
         }
 
+        private string warningMessage;
+
         Dictionary<char, SymbolTableValue> symbolTable =
             new Dictionary<char, SymbolTableValue>();
 
@@ -109,7 +106,7 @@ namespace project1
                 int idType = symbolTable[Convert.ToChar(id)].Type;
                 string typeName = idType == Token.INUM ? "INUM" :
                     (idType == Token.FNUM ? "FNUM" : "UNDEFINED");
-                Warning("Variable " + id + " already declared as " + typeName);
+                Warning("Variable " + id + " already declared as " + typeName, true);
             }
             else
             {
@@ -127,7 +124,7 @@ namespace project1
             {
                 if (stValue.Type == Token.FNUM)
                 {
-                    Warning("Cannot convert from FNUM to INUM");
+                    Warning("Cannot convert from FNUM to INUM", false);
                 }
                 else
                 {
@@ -150,12 +147,28 @@ namespace project1
         {
             if (symbolTable.ContainsKey(Convert.ToChar(id)))
             {
-                Console.WriteLine(id + " = " +
-                                  symbolTable[Convert.ToChar(id)].Value);
+                string type = null;
+                if (symbolTable[Convert.ToChar(id)].Type == INUM)
+                {
+                    type = "i ";
+                }
+                else if (symbolTable[Convert.ToChar(id)].Type == FNUM)
+                {
+                    type = "f ";
+                }
+                if (symbolTable[Convert.ToChar(id)].IsSet)
+                {
+                    Console.WriteLine(type + id + " = " +
+                                      symbolTable[Convert.ToChar(id)].Value);
+                }
+                else
+                {
+                    Console.WriteLine(type + id + " is undefined");
+                }
             }
             else
             {
-                Console.WriteLine(id + " is unassigned");
+                Console.WriteLine(id + " is undeclared");
             }
         }
 
@@ -248,35 +261,32 @@ namespace project1
         public virtual void Stmt()
         {
             string id;
-            int op;
             SymbolTableValue idVal;
 
             if (ts.peek() == ID)
             {
                 id = ts.peekValue();
+                Expect(ID);
+                Expect(ASSIGN);
+
                 if (!symbolTable.ContainsKey(Convert.ToChar(id)))
                 {
-                    Warning(id + " was not declared.");
                     //absorb remaining stmt
-                    ts.advance();
-                    ts.advance();
                     SymbolTableValue stDummyVal = Val();
                     Expr(stDummyVal);
+                    Warning(id + " was not declared", false);
+                    Warning("Assignment of " + id + " failed", true);
                 }
                 else
                 {
                     idVal = symbolTable[Convert.ToChar(id)];
-
-                    Expect(ID);
-                    op = ts.peek();
-                    Expect(ASSIGN);
                     SymbolTableValue stVal = Val();
                     if (!stVal.IsSet)
                     {
-                        Console.WriteLine("Assignment of " + id + " failed.");
                         // assignment failed, absorb remaining stmt
                         stVal.Type = Token.FNUM;
                         Expr(stVal);
+                        Warning("Assignment of " + id + " failed", true);
                     }
                     else
                     {
@@ -291,10 +301,15 @@ namespace project1
                                 Token.PLUS, stVal, stExp);
                             UpdateSymbolTable(Convert.ToChar(id), stResult);
                         }
-                        // if expression is lambda, update symbol table with value
+                        // if expression is lambda, update symbol table w/value
                         else if (stExp.IsLambda)
                         {
                             UpdateSymbolTable(Convert.ToChar(id), stVal);
+                        }
+                        if (idVal.Type == INUM && (idVal.Type != stVal.Type || 
+                            (idVal.Type != stExp.Type && !stExp.IsLambda)))
+                        {
+                            Warning("Assignment of " + id + " failed", true);
                         }
                     }
 
@@ -320,7 +335,7 @@ namespace project1
             }
             else
             {
-                Error("expected id or print");
+                Error("expected id or stable");
             }
         }
 
@@ -383,8 +398,11 @@ namespace project1
                 }
                 else
                 {
-                    //Error("Cannot convert from FNUM to INUM type");
-                    Warning("Cannot convert from FNUM to INUM type");
+                    if (v.IsSet)
+                    {
+                        Warning("Cannot convert from FNUM to INUM (v.Type = " + v.Type + ")", false);
+
+                    }
                 }
             }
             else if (idValue.Type == FNUM)
@@ -404,12 +422,10 @@ namespace project1
                 {
                     if (e.IsLambda)
                     {
-                        Console.WriteLine("PLUS " + v.Value + " (Expr() = lambda) ");
                         result.Value = v.Value + e.Value;
                     }
                     else
                     {
-                        Console.WriteLine("PLUS " + v.Value + " + " + e.Value);
                         result.Value = v.Value + e.Value;
                     }
                 }
@@ -417,16 +433,14 @@ namespace project1
                 {
                     if (e.IsLambda)
                     {
-                        Console.WriteLine("MINUS (-)" + v.Value + " (Expr() = lambda) ");
-                        result.Value = - v.Value;
+                        result.Value = -v.Value;
                     }
                     else
                     {
-                        Console.WriteLine("MINUS (-)" + v.Value + " + " + e.Value);
                         result.Value = -v.Value + e.Value;
                     }
                 }
-            } // otherwise return value has isSet = false, with no value/type
+            } // otherwise return value where isSet = false, with no value/type
 
             return result;
         }
@@ -438,16 +452,22 @@ namespace project1
             if (ts.peek() == ID)
             {
                 value = ts.peekValue();
+                Expect(ID);
                 // ID's type/#value should already exist in symbol table 
                 if (!symbolTable.ContainsKey(Convert.ToChar(value)))
                 {
-                    Warning(value + " is undefined");
-                    ts.advance();
+                    Warning(value + " was not declared", false);
                     return new SymbolTableValue();
                 }
                 else
                 {
-                    Expect(ID);
+                    SymbolTableValue stValue = 
+                        symbolTable[Convert.ToChar(value)];
+                    if (!stValue.IsSet)
+                    {
+                        Warning(value + " has not been assigned a value",
+                            false);
+                    }
                     return symbolTable[Convert.ToChar(value)];
                 }
             }
@@ -491,9 +511,25 @@ namespace project1
             throw new Exception(message);
         }
 
-        private void Warning(string message)
+        private void Warning(string message, bool print)
         {
-            Console.WriteLine("Warning: " + message);
+            if (print)
+            {
+                if (warningMessage == null)
+                {
+                    Console.WriteLine("Warning: " + message);
+                }
+                else
+                {
+                    warningMessage = "Warning: " + message + warningMessage;
+                    Console.WriteLine(warningMessage);
+                }
+                warningMessage = null;
+            }
+            else
+            {
+                warningMessage = warningMessage + "\n\t" + message;
+            }
         }
     }
 
