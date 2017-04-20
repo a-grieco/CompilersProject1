@@ -26,8 +26,6 @@ namespace project1
             ts = new TokenStream(file);
         }
 
-        private string _warningMessage;
-
         #region SymbolTable
 
         public struct SymbolTableValue
@@ -116,7 +114,7 @@ namespace project1
                 int idType = symbolTable[Convert.ToChar(id)].Type;
                 string typeName = idType == Token.INUM ? "INUM" :
                     (idType == Token.FNUM ? "FNUM" : "UNDEFINED");
-                Warning("Variable " + id + " already declared as " + typeName, true);
+                Warning("Variable " + id + " already declared as " + typeName);
             }
             else
             {
@@ -130,7 +128,7 @@ namespace project1
                 else
                 {
                     Warning("Declaration of " + id + 
-                        " failed, expected type INUM or FNUM", true);
+                        " failed, expected type INUM or FNUM");
                 }
 
             }
@@ -144,7 +142,8 @@ namespace project1
             {
                 if (stValue.Type == Token.FNUM)
                 {
-                    Warning("Cannot convert from FNUM to INUM", false);
+                    Warning("Cannot convert from FNUM to INUM (" + id + 
+                        " is defined as an INUM)");
                 }
                 else
                 {
@@ -286,10 +285,9 @@ namespace project1
                 if (!symbolTable.ContainsKey(Convert.ToChar(id)))
                 {
                     //absorb remaining stmt
+                    Warning(id + " was not declared");
                     SymbolTableValue stDummyVal = Val();
                     Expr(stDummyVal);
-                    Warning(id + " was not declared", false);
-                    Warning("Assignment of " + id + " failed", true);
                 }
                 else
                 {
@@ -300,14 +298,13 @@ namespace project1
                         // assignment failed, absorb remaining stmt
                         stVal.Type = Token.FNUM;
                         Expr(stVal);
-                        Warning("Assignment of " + id + " failed", true);
                     }
                     else
                     {
                         // if value is valid, evaluate expression
                         SymbolTableValue stExp = Expr(idVal);
-                        // if expression is valid (and not lambda), perform 
-                        // operation and update symbol table
+                        // if expression is valid, perform operation and update
+                        // symbol table with result
                         if (stExp.IsSet)
                         {
                             SymbolTableValue stResult = Operate(
@@ -320,21 +317,14 @@ namespace project1
                         {
                             UpdateSymbolTable(Convert.ToChar(id), stVal);
                         }
-                        if (idVal.Type == INUM && (idVal.Type != stVal.Type ||
-                            (idVal.Type != stExp.Type && !stExp.IsLambda)))
-                        {
-                            Warning("Assignment of " + id + " failed", true);
-                        }
                     }
-
                 }
             }
             else if (ts.peek() == PRINT)
             {
                 Expect(PRINT);
 
-                // add print symbol table functionality
-                // TODO: grammar could be adjusted to accomodate this
+                // add print symbol table functionality (p ~)
                 if (ts.peek() == STABLE)
                 {
                     Expect(STABLE);
@@ -353,8 +343,6 @@ namespace project1
             }
         }
 
-
-        // better to pass the value into expression and do everything that way
         public virtual SymbolTableValue Expr(SymbolTableValue stValue)
         {
             int op = ts.peek();
@@ -375,28 +363,18 @@ namespace project1
             else if (ts.peek() == FLTDCL || ts.peek() == INTDCL ||
                 ts.peek() == ID || ts.peek() == PRINT || ts.peek() == EOF)
             {
-                // Do nothing for lambda-production
-
                 // return (unset) flagged lambda value for lambda-production
                 SymbolTableValue stLambda = new SymbolTableValue();
                 stLambda.IsLambda = true;
                 return stLambda;
-                //stLambda.Type = stValue.Type;
-                //stLambda.Value = 0;
-                //return stLambda;
             }
-            else
-            {
-                Error("expected plus, minus, fltdcl, intdcl, id, print, or " +
-                      "eof");
-            }
-            Console.WriteLine("I SHOULD NOT BE HERE...TODO DELETE ME");
-            return new SymbolTableValue(); // code should not reach this point 
+            // code should not reach this point
+            Error("expected plus, minus, fltdcl, intdcl, id, print, or eof");
+            return new SymbolTableValue();  
         }
 
         // Adds or subtracts two values and returns a SymbolTableValue with an
         // appropriate type: INUM + INUM = INUM, FNUM + (INUM or FNUM) = FNUM
-        // TODO: check for valid assignment to variable (different method)
         private SymbolTableValue Operate(SymbolTableValue idValue, int op,
             SymbolTableValue v, SymbolTableValue e)
         {
@@ -409,14 +387,6 @@ namespace project1
                 if (v.Type == INUM && (e.IsLambda || e.Type == INUM))
                 {
                     result.Type = INUM;
-                }
-                else
-                {
-                    if (v.IsSet)
-                    {
-                        Warning("Cannot convert from FNUM to INUM (v.Type = " + v.Type + ")", false);
-
-                    }
                 }
             }
             else if (idValue.Type == FNUM)
@@ -470,7 +440,7 @@ namespace project1
                 // ID's type/#value should already exist in symbol table 
                 if (!symbolTable.ContainsKey(Convert.ToChar(value)))
                 {
-                    Warning(value + " was not declared", false);
+                    Warning(value + " was not declared");
                     return new SymbolTableValue();
                 }
                 else
@@ -479,8 +449,7 @@ namespace project1
                         symbolTable[Convert.ToChar(value)];
                     if (!stValue.IsSet)
                     {
-                        Warning(value + " has not been assigned a value",
-                            false);
+                        Warning(value + " has not been assigned a value");
                     }
                     return symbolTable[Convert.ToChar(value)];
                 }
@@ -525,25 +494,9 @@ namespace project1
             throw new Exception(message);
         }
 
-        private void Warning(string message, bool print)
+        private void Warning(string message)
         {
-            if (print)
-            {
-                if (_warningMessage == null)
-                {
-                    Console.WriteLine("Warning: " + message);
-                }
-                else
-                {
-                    _warningMessage = "Warning: " + message + _warningMessage;
-                    Console.WriteLine(_warningMessage);
-                }
-                _warningMessage = null;
-            }
-            else
-            {
-                _warningMessage = _warningMessage + "\n\t" + message;
-            }
+            Console.WriteLine("Warning: " + message);
         }
     }
 

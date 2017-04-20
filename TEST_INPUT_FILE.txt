@@ -12,6 +12,4 @@ c = x
 a = b + d - 1 
 f c
 
-x = y + q + v
-
 p ~
